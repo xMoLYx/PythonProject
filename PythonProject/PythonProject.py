@@ -24,6 +24,7 @@ bgImage = ImageTk.PhotoImage(file='LogIn.png')
 bgLabel = Label(loginScreen, image = bgImage)
 bgLabel.grid(row = 0, column = 0)
 
+#edit bg = 'transparent'
 usernameEntry = Entry(loginScreen, width = 18, font = ('Codec Pro Extra Bold', 20, 'bold'), bd = 0, bg = '#ab23ff', fg = 'black')
 usernameEntry.place(x = 860, y = 260)
 usernameEntry.insert(0,'Username')
