@@ -1,9 +1,6 @@
-from distutils.filelist import translate_pattern
 from tkinter import *
-from tkinter import ttk
 from turtle import heading, width
-from PIL import Image, ImageTk
-from ttkthemes import ThemedStyle
+from PIL import ImageTk
 
 #FUNCTIONS
 
@@ -20,24 +17,17 @@ loginScreen = Tk()
 loginScreen.geometry('1366x768')
 loginScreen.resizable(0,0)
 loginScreen.title('Python Project')
-loginScreen.wm_attributes('-transparent', '#ab23ff')
-
-
-##
-style = ThemedStyle(loginScreen)
-style.configure('Transparent.TEntry', fieldbackground='rgba(255, 255, 255, 0.3)')
-##
 
 bgImage = ImageTk.PhotoImage(file='LogIn.png')
 
 bgLabel = Label(loginScreen, image = bgImage)
 bgLabel.grid(row = 0, column = 0)
-bgLabel.place(x=0, y=0, relwidth=1, relheight=1)
 
-usernameEntry = ttk.Entry(loginScreen, style = 'Transparent.TEntry',width = 18, font = ('Codec Pro Extra Bold', 20, 'bold'))
+usernameEntry = Entry(loginScreen, width = 18, font = ('Codec Pro Extra Bold', 20, 'bold'), bd = 0, fg = 'black')
 usernameEntry.place(x = 860, y = 260)
 usernameEntry.insert(0,'Username')
 usernameEntry.bind('<FocusIn>', userEnter)
+
 
 frame1 = Frame(loginScreen, width = 272, height = 2, bg = '#101728')
 frame1.place(x = 860, y = 295)
