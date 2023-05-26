@@ -1,6 +1,7 @@
 from tkinter import *
 from turtle import heading, width
 from PIL import ImageTk
+import pymysql
 
 #FUNCTIONS
 
@@ -25,6 +26,8 @@ def show():
 def goSignUp():
     loginScreen.destroy() 
     import SignUp
+
+
 
 #GUI
 loginScreen = Tk()
