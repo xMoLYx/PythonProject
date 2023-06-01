@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>011fe822-f3e6-468d-845c-b435525a21e9</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>SignUp.py</StartupFile>
+    <StartupFile>LogIn.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
