@@ -53,13 +53,11 @@ def connect_DataBase():
     else:
         try:
             con = sl.connect('userdata.db')
-            #con = pyodbc.connect(host = 'localhost', port = 3306, user = 'root', password = '')
             mycursor = con.cursor()
         except:
             messagebox.showerror('Error', 'Database connectivity issue, please try again')
             return
 
-        
         query = 'create table if not exists data(id integer primary key autoincrement not null, email varchar(50), username varchar(100), password varchar(20))'
         mycursor.execute(query)
         query = 'select * from data where username = ?'

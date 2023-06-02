@@ -22,6 +22,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="LogIn.py" />
+    <Compile Include="moduł1.py" />
+    <Compile Include="program.py" />
     <Compile Include="SignUp.py">
       <SubType>Code</SubType>
     </Compile>
@@ -30,6 +32,7 @@
     <Content Include="hide.png" />
     <Content Include="LogIn.png" />
     <Content Include="SignUp.png" />
+    <Content Include="SRS.png" />
     <Content Include="view.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

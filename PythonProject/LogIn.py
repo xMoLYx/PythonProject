@@ -48,6 +48,8 @@ def login_user():
             messagebox.showerror('Error', 'Invalid username or password!')
         else:
             messagebox.showinfo('Welcome', 'Success!')
+            loginScreen.destroy()
+            import program
 
 def forget():
 
@@ -80,6 +82,7 @@ def forget():
 
     window = Toplevel()
     window.title('Change Password')
+    window.resizable(0,0)
 
     bgPic = ImageTk.PhotoImage(file = 'reset.png')
     bgLabel = Label(window, image = bgPic)
