@@ -1,7 +1,8 @@
 from tkinter import *
 from tkinter import messagebox
 from PIL import ImageTk
-import pymysql
+import sqlite3 as sl
+
 
 #FUNCTIONS
 def emailEnter(event):
@@ -51,36 +52,28 @@ def connect_DataBase():
         messagebox.showerror('Error', 'Please accept Terms & Conditions')
     else:
         try:
-            con = pymysql.connect(host = 'localhost', port = 3306, user = 'root', password = '')
+            con = sl.connect('userdata.db')
+            #con = pyodbc.connect(host = 'localhost', port = 3306, user = 'root', password = '')
             mycursor = con.cursor()
         except:
             messagebox.showerror('Error', 'Database connectivity issue, please try again')
             return
 
         
-        
-        try:
-            query = 'create database userdata'
-            mycursor.execute(query)
-            query = 'use userdata'
-            mycursor.execute(query)
-            query = 'create table data(id int auto_increment primary key not null, email varchar(50), username varchar(100), password varchar(20))'
-            mycursor.execute(query)
-        except:
-            mycursor.execute('use userdata')
-
-        query = 'select * from data where username = %s'
-        mycursor.execute(query, (usernameEntry.get()))
+        query = 'create table if not exists data(id integer primary key autoincrement not null, email varchar(50), username varchar(100), password varchar(20))'
+        mycursor.execute(query)
+        query = 'select * from data where username = ?'
+        mycursor.execute(query, (usernameEntry.get(),))
         rowUsername = mycursor.fetchone()
-        query = 'select * from data where email = %s'
-        mycursor.execute(query, (emailEntry.get()))
+        query = 'select * from data where email = ?'
+        mycursor.execute(query, (emailEntry.get(),))
         rowEmail = mycursor.fetchone()
         if rowUsername != None:
             messagebox.showerror('Error', 'Username already exists!')
         elif rowEmail != None:
-            messagebox.showerror('Error', 'Email is already associated with another acoount!')
+            messagebox.showerror('Error', 'Email is already associated with another account!')
         else:
-            query = 'insert into data(email, username, password) values(%s, %s, %s)'
+            query = 'insert into data(email, username, password) values(?, ?, ?)'
             mycursor.execute(query,(emailEntry.get(), usernameEntry.get(), passwordEntry.get()))
             con.commit()
             con.close()
@@ -88,7 +81,6 @@ def connect_DataBase():
             clear()
             signup_window.destroy()
             import LogIn
-
 
 
 #GUI
@@ -140,5 +132,6 @@ alreadyAccount.place(x = 558, y = 623)
 
 loginButton = Button(signup_window, text = 'Log In', font = ('Codec Pro Extra Bold', 12, 'bold underline'), bg = 'white', fg = 'blue', cursor = 'hand2', activebackground = 'white', activeforeground = 'white', height = 1, command = login_page)
 loginButton.place(x= 757, y = 620)
+
 
 signup_window.mainloop()

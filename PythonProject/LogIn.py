@@ -4,10 +4,9 @@ from tkinter import messagebox
 from tkinter.tix import WINDOW
 from turtle import heading, width
 from PIL import ImageTk
-import pymysql
+import sqlite3 as sl
 
 #FUNCTIONS
-
 def userEnter(event):
     if usernameEntry.get() == 'Username':
         usernameEntry.delete(0, END)
@@ -36,15 +35,13 @@ def login_user():
 
     else:
         try:
-            con = pymysql.connect(host = 'localhost', port = 3306, user = 'root', password = '')
+            con = sl.connect('userdata.db')
             mycursor = con.cursor()
         except:
             messagebox.showerror('Error', 'Database connectivity issue, please try again')
             return
 
-        query = 'use userdata'
-        mycursor.execute(query)
-        query = 'select * from data where username = %s and password = %s'
+        query = 'select * from data where username = ? and password = ?'
         mycursor.execute(query,(usernameEntry.get(), passwordEntry.get()))
         row = mycursor.fetchone()
         if row ==  None:
@@ -53,6 +50,34 @@ def login_user():
             messagebox.showinfo('Welcome', 'Success!')
 
 def forget():
+
+    def change_password():
+        if usernameField.get() == '' or passwordField.get() == '' or confirmPassword.get() == '':
+            messagebox.showerror('Error', 'All fields are required', parent = window)
+        elif passwordField.get() != confirmPassword.get():
+            messagebox.showerror('Error', 'Passswords do not match')
+        else:
+            try:
+                con = sl.connect('userdata.db')
+                mycursor = con.cursor()
+            except:
+                messagebox.showerror('Error', 'Database connectivity issue, please try again')
+                return
+
+            query = 'select * from data where username = ?'
+            mycursor.execute(query,(usernameField.get(),))
+            row = mycursor.fetchone()
+            if row ==  None:
+                messagebox.showerror('Error', 'Incorrect Username!', parent =  window)
+            else:
+                query = 'update data set password = ? where username = ?'
+                mycursor.execute(query, (passwordField.get(), usernameField.get()))
+                con.commit()
+                con.close()
+                messagebox.showinfo('Succes', 'Password updated!', parent = window)
+                window.destroy()
+
+
     window = Toplevel()
     window.title('Change Password')
 
@@ -71,6 +96,18 @@ def forget():
     def repPassEnter(event): 
         if confirmPassword.get() == 'Confirm Password':
             confirmPassword.delete(0, END)
+    
+    def hide():
+        view.config(file = 'hide.png')
+        passwordField.config(show = '*')
+        confirmPassword.config(show = '*')
+        eyeButton.config(command = show)
+
+    def show():
+        view.config(file = 'view.png')
+        passwordField.config(show = '')
+        confirmPassword.config(show = '')
+        eyeButton.config(command = hide)
 
     usernameField = Entry(window, width = 18, font = ('Codec Pro Extra Bold', 20, 'bold'), bd = 0, bg = '#ab23ff', fg = 'black')
     usernameField.place(x = 200, y = 170)
@@ -82,13 +119,20 @@ def forget():
     passwordField.insert(0,'Password')
     passwordField.bind('<FocusIn>', passwordEnter)
 
-    confirmPassword = Entry(window, width = 18, font = ('Codec Pro Extra Bold', 20, 'bold'), bd = 0, fg = 'black')
+    confirmPassword = Entry(window, width = 18, font = ('Codec Pro Extra Bold', 20, 'bold'), bd = 0, bg = '#ab23ff', fg = 'black')
     confirmPassword.place(x = 200, y = 330)
     confirmPassword.insert(0,'Confirm Password')
     confirmPassword.bind('<FocusIn>', repPassEnter)
 
-    changeButton = Button(window, text = "Change Password", font = ('Codec Pro Extra Bold', 13, 'bold'), fg = 'black')
-    changeButton.place(x = 257, y = 340)
+    changeButton = Button(window, text = "Change Password", font = ('Codec Pro Extra Bold', 13, 'bold'), fg = 'black', bg = '#ab23ff', command = change_password)
+    changeButton.place(x = 257, y = 450)
+
+    view = PhotoImage(file = 'view.png')
+    eyeButton = Button(window, image = view, bd = 0, bg = '#ab23ff', activebackground = '#ab23ff', cursor = 'hand2', command = hide)
+    eyeButton.place(x = 200, y = 370)
+
+    showPass = Label(window, text = 'Show Password', font = ('Codec Pro Extra Bold', 12, 'bold'), fg = 'black', height = 1, width = 13, bg = '#ab23ff')
+    showPass.place(x = 224, y = 371)
 
 
     window.mainloop()
@@ -100,7 +144,7 @@ loginScreen.geometry('1366x768')
 loginScreen.resizable(0,0)
 loginScreen.title('Python Project')
 
-bgImage = ImageTk.PhotoImage(file='LogIn.png')
+bgImage = ImageTk.PhotoImage(file = 'LogIn.png')
 
 bgLabel = Label(loginScreen, image = bgImage)
 bgLabel.grid(row = 0, column = 0)
