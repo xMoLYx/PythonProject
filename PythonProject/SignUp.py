@@ -35,7 +35,7 @@ def show():
 
 def login_page():
     signup_window.destroy()
-    import LogIn
+    import main
 
 def clear():
     emailEntry.delete(0,END)
@@ -78,7 +78,7 @@ def connect_DataBase():
             messagebox.showinfo('Success', 'Registartion is succesful!')
             clear()
             signup_window.destroy()
-            import LogIn
+            import main
 
 
 #GUI
