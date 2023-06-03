@@ -161,7 +161,7 @@ usernameEntry.bind('<FocusIn>', userEnter)
 frame1 = Frame(loginScreen, width = 272, height = 2, bg = '#101728')
 frame1.place(x = 860, y = 295)
 
-passwordEntry = Entry(loginScreen, width = 18, font = ('Codec Pro Extra Bold', 20, 'bold'), bd = 0, fg = 'black', bg = 'purple')
+passwordEntry = Entry(loginScreen, width = 18, font = ('Codec Pro Extra Bold', 20, 'bold'), bd = 0, fg = 'black', bg = '#ab23ff')
 passwordEntry.place(x = 860, y = 395)
 passwordEntry.insert(0,'Password')
 passwordEntry.bind('<FocusIn>', passwordEnter)
@@ -170,16 +170,16 @@ frame2 = Frame(loginScreen, width = 272, height = 2, bg = '#101728')
 frame2.place(x = 860, y = 430)
 
 view = PhotoImage(file = 'view.png')
-eyeButton = Button(loginScreen, image = view, bd = 0, bg = 'purple', activebackground = 'purple', cursor = 'hand2', command = hide)
+eyeButton = Button(loginScreen, image = view, bd = 0, bg = '#ab23ff', activebackground = '#ab23ff', cursor = 'hand2', command = hide)
 eyeButton.place(x = 1100, y = 399)
 
-forgetButton = Button(loginScreen, text = 'Forgot your password?', bd = 0, bg = 'white', activebackground = 'white', cursor = 'hand2', font = ('Codec Pro Extra Bold', 9), command = forget)
+forgetButton = Button(loginScreen, text = 'Forgot your password?', bd = 0, bg = '#9340FF', fg = '#FF3C5F', activebackground = '#9340FF', cursor = 'hand2', font = ('Codec Pro Extra Bold', 9, 'bold underline'), command = forget)
 forgetButton.place(x = 999, y = 433)
 
-loginButton = Button(loginScreen, text = "Login", font = ('Codec Pro Extra Bold', 20, 'bold'), fg = 'black', command = login_user)
+loginButton = Button(loginScreen, text = "Login", font = ('Codec Pro Extra Bold', 20, 'bold'), fg = 'black', command = login_user, bg = '#ab23ff', activebackground = '#ab23ff')
 loginButton.place(x = 946, y = 529)
 
-signupButton = Button(loginScreen, text = 'Sign Up', font = ('Codec Pro Extra Bold', 20, 'bold'), fg = 'black', height = 2, width = 11, command = goSignUp)
+signupButton = Button(loginScreen, text = 'Sign Up', font = ('Codec Pro Extra Bold', 20, 'bold'), fg = 'black', height = 2, width = 11, bg = '#9340FF', activebackground = '#9340FF', command = goSignUp)
 signupButton.place(x = 127, y = 434)
 
 loginScreen.mainloop()

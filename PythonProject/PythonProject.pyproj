@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>011fe822-f3e6-468d-845c-b435525a21e9</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>LogIn.py</StartupFile>
+    <StartupFile>program.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,7 +22,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="LogIn.py" />
-    <Compile Include="moduł1.py" />
     <Compile Include="program.py" />
     <Compile Include="SignUp.py">
       <SubType>Code</SubType>
